@@ -33,9 +33,22 @@ int     ft_putstr(char *str)
     return (i);
 }
 
-
 int		ft_put_percent(void)
 {
     ft_putchar('%');
     return (1);
+}
+
+int     ft_findpercent(char **substr)
+{
+    int	i;
+
+    i = 0;
+    while (substr[i])
+    {
+        if (substr[i][0] == '%')
+			return (i);
+		i++;
+    }
+	return (0);
 }

@@ -31,17 +31,20 @@ Format tag prototypes: %[flags][width][.precision][length]specifier
 
 %[-+0# ][int][.int][char]
 
--: left-justify int output (no sign: automatically right justified)
-0: zero filled
-.:
-Minimum field-width
-    - int
-    - default padding: using spaces
-    - if value > mfw: prints
-    - pad with 0: place 0 before mfw specifier
-        printf("%10f\n", item);  | output: 10.123040
-        printf("%012f\n", item); | output: 00010.123040
+Summary:
 
-#: alternate forms of conversions (depends on conversion) (test with stdfunc?)
-space: if + int is passed, print: ' 42' | if - int is passed, print: '-42' (no change)
-+: forces a sign char ('+' or '-') to be displayed before the value
+| Flag         | Desc                       | Valid Specifiers | Exceptions       |
+|--------------|----------------------------|------------------|------------------|
+| [ ] #        | Adds 0x / 0X               | xX               |                  |
+| [ ] 0        | Zero padding               | diuxX            | ignore when '-0' | 
+| [ ] +        | Adds '+'                   | diu              |                  |
+| [ ] -        | Left adjust                | cspdiuxX%        |                  |
+| [ ] ' '      | Adds ' ' in front of + num | diu              | ignore when ' +' |
+| [ ] precision| Truncates string           | s                |                  |
+| [ ] mfw      | Space padding              | cspdiuxX%        |                  |
+
+Checklist:
+- [ ] handle the inconsistency between format specifier and input
+        - apparently like casting
+        - %x able to print char since it has ascii val
+- [ ] implement the easy extra: # + precision

@@ -12,26 +12,22 @@
 
 #include "ft_printf.h"
 
-// struct s_flag
-// {
-    
-// }       t_flag
-
-
-int ft_spec_parse(va_list ap, const char *s, int len)
+int ft_parse(va_list ap, const char *s, int len)
 {
-    if (*s == 'c' || *s == 's')
-        len = ft_putstr(va_arg(ap, char*));
+    if (*s == 's')
+		len += ft_putstr(va_arg(ap, char*));
+    else if (*s == 'c')
+        len += ft_putchar(va_arg(ap, int)); // char promoted to int
     else if (*s == 'p')
-        len = ft_put_ptr(va_arg(ap, uintptr_t));
+        len += ft_put_ptr(va_arg(ap, uintptr_t));
     else if (*s == 'd' || *s == 'i')
-        len = ft_putnbr_int(va_arg(ap, int));
+        len += ft_putnbr_int(va_arg(ap, int));
     else if (*s == 'u')
-        len = ft_putnbr_uint(va_arg(ap, unsigned int));
+        len += ft_putnbr_uint(va_arg(ap, unsigned int));
     else if (*s == 'x' || *s == 'X')
-        len = ft_puthex(va_arg(ap, unsigned int), *s);
+        len += ft_puthex(va_arg(ap, unsigned int), *s);
     else if (*s == '%')
-        len = ft_put_percent();
+        len += ft_put_percent();
     return (len);
 }
 
@@ -39,18 +35,25 @@ int ft_printf(const char *s,...)
 {
     va_list ap;
     int     len;
-
+ 
     len = 0;
+	if (*s == '\0')
+		return (ft_putstr("Error: empty string"));
     va_start(ap, s);
+	// if (va_arg(ap, void *) == NULL)
+	// 	return (ft_putstr("Error: insufficient arguments"));
     while (*s)
     {
-        if (*s == '%')
+        if (*s != '%')
+            len += ft_putchar(*s);
+        else
         {
             s++;
-            len = ft_spec_parse(ap, s, len);
+            if (ft_checkspec_all(s) == 1)
+                len += ft_parse(ap, s, len);
+            if (*s == '\0')
+                break ;
         }
-        else
-            ft_putchar(*s);
         s++;
     }
     va_end(ap);
@@ -60,12 +63,10 @@ int ft_printf(const char *s,...)
 int main(void)
 {
     // %c
-    // char    c = 'a';
-    // printf("%d\n", ft_printf("%c", c));
+    // printf("%d\n", ft_printf("%c", 'a'));
 
     // %s
-    // char    s[] = "cheese";
-    // printf("%d\n", ft_printf("%s", s));
+    // printf("%d\n", ft_printf("%s", "cheese"));
 
     // %p
     // char    c = 'b';
@@ -78,20 +79,19 @@ int main(void)
     // printf("%d\n", printf("%d\n", num));
 
     // %u
-    // unsigned int    num = 4294967295;
-    // printf("%d\n", ft_printf("%u", num));
-    // printf("%d\n", printf("%u\n", num));
+    // printf("%d\n", ft_printf("%u", 4294967295));
+    // printf("%d\n", printf("%u\n", 4294967295));
 
     // %x and %X
-    // int  num = -2;
-    // printf("%d\n", ft_printf("%x", num));
-    // printf("%d\n", printf("%x", num));
-    // printf("%d\n", ft_printf("%X", num));
-    // printf("%d\n", printf("%X", num));
+    // printf("%d\n", ft_printf("%x", -2));
+    // printf("%d\n", printf("%x", 97));
+    // printf("%d\n", ft_printf("%X", -2));
+    // printf("%d\n", printf("%X", -2));
 
     // %%
     // printf("%d\n", ft_printf("%%"));
-    // printf("%d\n", printf("%%"));
 
-    printf("%d\n", printf("%5d", 1234));
+    // printf("%d\n", printf("%p", 'a'));
+    printf("%d\n", ft_printf("%p", 'a'));
+    // ft_printf("%s", "testing");
 }
