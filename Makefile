@@ -15,7 +15,8 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
 AR = ar rcs
 RM = rm -rf
-CFILES = ft_printf.c ft_std.c
+CFILES = ft_printf.c ft_print_hex.c ft_print_nbr.c ft_print_ptr.c \
+ft_print_utils.c
 
 OBJS = $(CFILES:.c=.o)
 
@@ -26,9 +27,6 @@ $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
 all: $(NAME)
-
-compile: $(CFILES)
-	$(CC) $(CFLAGS) $<
 
 clean:
 	$(RM) $(OBJS)

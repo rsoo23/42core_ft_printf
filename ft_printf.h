@@ -16,18 +16,24 @@
 #include <stdlib.h> //write, malloc, free, exit
 #include <stdarg.h> //va_start, va_arg, va_end, va_copy
 #include <unistd.h>
+#include <stdint.h> // for uintptr_t
+#include <stdio.h>
+
 
 //ft_std.c
-int     ft_putchar(char c);
-int     ft_putstr(char *str);
-int     ft_numlen_int(int nb);
-int     ft_putnbr_int(int nb);
-int     ft_numlen_uint(unsigned int nb);
-int     ft_putnbr_uint(unsigned int nb);
-int     ft_puthex_low(int nb);
-int     ft_puthex_up(int nb);
-// int     ft_strlen(char *str);
+int		ft_putchar(char c);
+int		ft_putstr(char *str);
+int		ft_numlen_int(int nb);
+int		ft_putnbr_int(int nb);
+int		ft_numlen_uint(unsigned int nb);
+int		ft_putnbr_uint(unsigned int nb);
+int		ft_puthex(unsigned int nb, char format);
+int		ft_hex_len(uintptr_t nb);
+int		ft_put_percent(void);
+int     ft_put_ptr(uintptr_t nb);
+void	ft_puthex_ptr(uintptr_t nb);
 
 int     ft_printf(const char *format,...);
+int     ft_spec_parse(va_list ap, const char *s, int len);
 
 #endif
