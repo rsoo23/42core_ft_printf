@@ -33,18 +33,36 @@ Format tag prototypes: %[flags][width][.precision][length]specifier
 
 Summary:
 
-| Flag         | Desc                       | Valid Specifiers | Exceptions       |
-|--------------|----------------------------|------------------|------------------|
-| [ ] #        | Adds 0x / 0X               | xX               |                  |
-| [ ] 0        | Zero padding               | diuxX            | ignore when '-0' | 
-| [ ] +        | Adds '+'                   | diu              |                  |
-| [ ] -        | Left adjust                | cspdiuxX%        |                  |
-| [ ] ' '      | Adds ' ' in front of + num | diu              | ignore when ' +' |
-| [ ] precision| Truncates string           | s                |                  |
-| [ ] mfw      | Space padding              | cspdiuxX%        |                  |
+| Flag         | Desc                       | Valid Specifiers | Exceptions       | Error Check
+|--------------|----------------------------|------------------|------------------|-------------
+| [ ] #        | Adds 0x / 0X               | xX               |                  | done
+| [ ] 0        | Zero padding               | diuxX            | ignore when '-0' | done
+| [ ] +        | Adds '+'                   | diu              |                  | done
+| [ ] -        | Left adjust                | cspdiuxX%        |                  | no need
+| [ ] ' '      | Adds ' ' in front of + num | diu              | ignore when ' +' | done 
+| [ ] precision| Truncates string           | s                |                  | done
+| [ ] mfw      | Space padding              | cspdiuxX%        |                  | no need
 
 Checklist:
-- [ ] handle the inconsistency between format specifier and input
+- [x] handle the inconsistency between format specifier and input
         - apparently like casting
         - %x able to print char since it has ascii val
+        - conclusion: still works even if error in compiling
+
+- [x] error handling
+        - placement:
+        - [x] check flag
+        - [x] mfw and prec
+        - [x] check spec
+        - exceptions:
+        - [x] duplicate flags
+        - [x] check -0 and ' +', ignore the respective flag
+
 - [ ] implement the easy extra: # + precision
+
+
+
+Cases:
+ft_printf("%%", )
+ft_printf("%d")
+ft_printf("testing", )

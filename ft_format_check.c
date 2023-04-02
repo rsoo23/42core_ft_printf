@@ -15,9 +15,9 @@
 int		ft_checkspec_all(const char *s)
 {
 	if (ft_find_char(s) == '0')
-		return (ft_putstr("Error: missing specifier, select one: cspdiuxX%"));
-	if (ft_spec_valid(ft_find_char(s), "cspdiuxX%") == 0)
-		return (ft_putstr("Error: invalid specifier, select one: cspdiuxX%"));
+		return (ft_putstr("missing specifier, valid = cspdiuxX%"));
+	if (ft_valid_spec(ft_find_char(s), "cspdiuxX%") == 0)
+		return (ft_putstr("invalid specifier, valid = cspdiuxX%"));
 	return (1);
 }
 
@@ -39,7 +39,7 @@ char	ft_find_char(const char *s)
 }
 
 // check if the char is valid
-int		ft_spec_valid(char spec, char *spec_str)
+int		ft_valid_spec(char spec, char *spec_str)
 {
 	while (*spec_str)
 	{
@@ -49,20 +49,3 @@ int		ft_spec_valid(char spec, char *spec_str)
 	}
 	return (0);
 }
-
-// void	ft_check_format()
-// {
-// 	int	num;
-
-// 	num = 0;
-// 	while (ft_valid_flag(s[i]))
-// 		i++;
-// 	while (ft_isnum(s[i]))
-// 	{
-
-// 	}
-	
-// 		i++;
-// 	if (s[i] == '.')
-	
-// }

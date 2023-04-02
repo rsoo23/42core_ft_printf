@@ -42,9 +42,6 @@ int     ft_findpercent(char **substr);
 //ft_format_check.c
 int     ft_checkspec_all(const char *s);
 char    ft_find_char(const char *s);
-int		ft_spec_valid(char spec, char *spec_str);
-
-//bonus
-//ft_utils_b.c
+int		ft_valid_spec(char spec, char *spec_str);
 
 #endif
