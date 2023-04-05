@@ -77,13 +77,3 @@ int     ft_putnbr_uint(unsigned int nb)
         ft_putchar(nb + 48);
     return (ft_numlen_uint(nb));
 }
-
-// int     ft_strlen(char *str)
-// {
-//     int i;
-
-//     i = 0;
-//     while (str[i])
-//         str[i++];
-//     return (i);
-// }

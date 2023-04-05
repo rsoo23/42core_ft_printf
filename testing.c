@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-// int main()
-// {
-//     printf("%d", printf("%c", 5));
-// }
+int main()
+{
+    printf("%d", printf("% d", 0));
+}

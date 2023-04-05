@@ -33,15 +33,18 @@ Format tag prototypes: %[flags][width][.precision][length]specifier
 
 Summary:
 
-| Flag         | Desc                       | Valid Specifiers | Exceptions       | Error Check
-|--------------|----------------------------|------------------|------------------|-------------
-| [ ] #        | Adds 0x / 0X               | xX               |                  | done
-| [ ] 0        | Zero padding               | diuxX            | ignore when '-0' | done
-| [ ] +        | Adds '+'                   | diu              |                  | done
-| [ ] -        | Left adjust                | cspdiuxX%        |                  | no need
-| [ ] ' '      | Adds ' ' in front of + num | diu              | ignore when ' +' | done 
-| [ ] precision| Truncates string           | s                |                  | done
-| [ ] mfw      | Space padding              | cspdiuxX%        |                  | no need
+| Flag         | Desc                       | Valid Specifiers  | Exceptions       | Error Check
+|--------------|----------------------------|-------------------|------------------|-------------
+| [ ] #        | Adds 0x / 0X               |             x X   |                  | done
+| [ ] +        | Adds '+'                   |       d i u       |                  | done
+| [ ] ' '      | Adds ' ' in front of + num |       d i u       | ignore when ' +' | done 
+| [ ] 0        | Zero padding               |       d i u x X   | ignore when '-0' | done
+| [ ] -        | Left adjust                | c s p d i u x X % |                  | no need
+| [ ] precision| Truncates string           |   s               |                  | done
+| [ ] mfw      | Space padding              | c s p d i u x X % |                  | no need
+Done:
+- c, p, x, X, %
+
 
 Checklist:
 - [x] handle the inconsistency between format specifier and input
@@ -58,11 +61,20 @@ Checklist:
         - [x] duplicate flags
         - [x] check -0 and ' +', ignore the respective flag
 
-- [ ] implement the easy extra: # + precision
+- Parsing Priority:
+        - deal with spec
+        - take output -> strlen
+        - #, +, ' '
+        - mfw: malloc
+        - minus
+alternative:
+- edit the print_hex // print_nbr // print_ptr
 
-
+- add len in form
 
 Cases:
 ft_printf("%%", )
+ft_printf("%")
 ft_printf("%d")
 ft_printf("testing", )
+putting 0 behind .

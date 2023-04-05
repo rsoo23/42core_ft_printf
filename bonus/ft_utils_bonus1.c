@@ -1,37 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_utils_bonus1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rsoo <rsoo@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/02 21:01:26 by rsoo              #+#    #+#             */
-/*   Updated: 2023/04/02 21:01:26 by rsoo             ###   ########.fr       */
+/*   Created: 2023/04/04 16:22:33 by rsoo              #+#    #+#             */
+/*   Updated: 2023/04/04 16:22:33 by rsoo             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
 #include "ft_printf_bonus.h"
 
-// bonus
-int		ft_printf(const char *s,...)
+int     ft_putstr(char *str)
 {
-    va_list ap;
-    int     len;
- 
-    len = 0;
-	if (*s == '\0')
-		return (ft_putstr("Error: empty string"));
-    va_start(ap, s);
-    while (*s)
+    int i;
+
+    i = 0;
+    while (str[i])
     {
-        if (*s != '%')
-            len += ft_putchar(*s);
-        else
-            len += ft_parse_bonus(ap, s);
-        if (*s != '\0') // deals with "%"
-            s++;
+        ft_putchar(str[i]);
+        i++;
     }
-    va_end(ap);
-    return (len);
+    return (i);
+}
+
+int		ft_valid_input(const char c, char *str)
+{
+	while (str)
+	{
+		if (c == *str)
+			return (1);
+		str++;
+	}
+	return (0);
+}
+
+int     ft_putchar(char c)
+{
+    write(1, &c, 1);
+    return (1);
 }

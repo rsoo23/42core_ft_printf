@@ -38,7 +38,6 @@ void	ft_puthex_ptr(uintptr_t nb);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
 int		ft_put_percent(void);
-int     ft_findpercent(char **substr);
 //ft_format_check.c
 int     ft_checkspec_all(const char *s);
 char    ft_find_char(const char *s);
