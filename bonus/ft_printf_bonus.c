@@ -55,22 +55,19 @@ int main(void)
     // printf("%d\n", ft_printf("%%"));
     // printf("%d\n", printf("%%"));
 
-    // %d or %i
-    int num = -4;
-    printf("%d\n", ft_printf("%10d", num));
-    printf("%d\n", printf("%10d", num));
+    // %d or %i flags: mfw 0 - + ' '
+    // int num = -43;
+    // printf("%d\n", ft_printf("% -d", num));
+    // printf("%d\n", printf("% -d", num));
 
-    // %u
-    // printf("%d\n", ft_printf("%u", 4294967295));
-    // printf("%d\n", printf("%u\n", 4294967295));
+    // %u flags: mfw 0 - 
+    // unsigned int    i = 12345;
+    // printf("%d\n", ft_printf("%-4u", i));
+    // printf("%d\n", printf("%-4u", i));
     
-	// %s
-    // printf("%d\n", printf("%s", "cheese"));
-    // printf("%d\n", ft_printf("%s", "cheese"));
-
-
-
+	// %s flags: - prec mfw
+    // printf("%d\n", printf("%-10.7s", "cheese"));
+    // printf("%d\n", ft_printf("%-10.7s", "cheese"));
 
     // printf("%d\n", ft_printf("%p", 'a'));
-    write(1, "\n", 1);
 }

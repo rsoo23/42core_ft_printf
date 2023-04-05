@@ -22,14 +22,7 @@ void    ft_puthex_b(unsigned int nb, t_form *form) // # 0 - mfw
 		ft_puthex_hash(nb, form);
 	else if (!(form->minus) && form->zero)
 		ft_puthex_hash_zero(form);
-	while (form->form_len < form->min_fw)
-    {
-		if (form->zero)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-        form->form_len++;
-    }
+	ft_put_zero_space(form);
     if (!(form->minus))
 		ft_puthex_hash(nb, form);
 }

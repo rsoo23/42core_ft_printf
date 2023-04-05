@@ -16,27 +16,10 @@ void    ft_putnbr_uint_b(unsigned int nb, t_form *form)
 {
     ft_numlen_uint_b(nb, form);
 	if (form->minus)
-		ft_uint_space_plus(nb, form);
-	while (form->form_len < form->min_fw)
-    {
-		if (form->zero)
-			ft_putchar('0');
-		else
-			ft_putchar(' ');
-        form->form_len++;
-    }
+		ft_putnbr_uint(nb, form);
+	ft_put_zero_space(form);
     if (!(form->minus))
-		ft_uint_space_plus(nb, form);
-}
-
-void	ft_uint_space_plus(int nb, t_form *form)
-{
-    if (form->space)
-        form->form_len += ft_putchar(' ');
-    else if (form->plus)
-        form->form_len += ft_putchar('+');
-    ft_putnbr_uint(nb, form);
-	return ;
+		ft_putnbr_uint(nb, form);
 }
 
 void	ft_numlen_uint_b(unsigned int nb, t_form *form)
@@ -55,6 +38,5 @@ void	ft_putnbr_uint(unsigned int nb, t_form *form)
     if (nb > 9)
         ft_putnbr_uint(nb / 10, form);
     ft_putchar("0123456789"[nb % 10]);
-	form->form_len++;
     return ;
 }

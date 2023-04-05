@@ -21,10 +21,10 @@ int		ft_check_rule(t_form *form)
 		return (ft_putstr("Error: # only compatible with %xX"));
 	if (form->zero == 1 && !ft_valid_spec(form->spec, "diuxX"))
 		return (ft_putstr("Error: 0 only compatible with %diuxX"));
-	if (form->plus == 1 && !ft_valid_spec(form->spec, "diu"))
-		return (ft_putstr("Error: + only compatible with %diu"));
-	if (form->space == 1 && !ft_valid_spec(form->spec, "diu"))
-		return (ft_putstr("Error: space only compatible with %diu"));
+	if (form->plus == 1 && !ft_valid_spec(form->spec, "di"))
+		return (ft_putstr("Error: + only compatible with %di"));
+	if (form->space == 1 && !ft_valid_spec(form->spec, "di"))
+		return (ft_putstr("Error: space only compatible with %di"));
 	if (form->prec != 0 && !ft_valid_spec(form->spec, "s"))
 		return (ft_putstr("Error: prec only compatible with %s"));
 	if (form->minus == 1 && form->zero == 1) // -0: ignore zero

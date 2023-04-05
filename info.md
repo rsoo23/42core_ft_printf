@@ -36,8 +36,8 @@ Summary:
 | Flag         | Desc                       | Valid Specifiers  | Exceptions       | Error Check
 |--------------|----------------------------|-------------------|------------------|-------------
 | [ ] #        | Adds 0x / 0X               |             x X   |                  | done
-| [ ] +        | Adds '+'                   |       d i u       |                  | done
-| [ ] ' '      | Adds ' ' in front of + num |       d i u       | ignore when ' +' | done 
+| [ ] +        | Adds '+'                   |       d i         |                  | done
+| [ ] ' '      | Adds ' ' in front of + num |       d i         | ignore when ' +' | done 
 | [ ] 0        | Zero padding               |       d i u x X   | ignore when '-0' | done
 | [ ] -        | Left adjust                | c s p d i u x X % |                  | no need
 | [ ] precision| Truncates string           |   s               |                  | done

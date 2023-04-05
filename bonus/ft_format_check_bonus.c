@@ -20,13 +20,18 @@ int		ft_check_assign_form(const char **s, t_form *form)
 		if (ft_valid_flag(**s, "-+0# "))
 			ft_assign_flag(s, form);
 		if (**s >= '1' && **s <= '9')
-			ft_assign_num(s, form);
+		{
+			while (**s >= '0' && **s <= '9')
+			{
+				form->min_fw = (form->min_fw * 10) + (**s - 48);
+				(*s)++;
+			}
+		}
 		if (**s == '.')
 		{
 			form->prec_exist = 1;
 			(*s)++;
 			ft_check_assign_prec(**s, s, form);
-			(*s)++;
 		}
 		if (ft_valid_spec(**s, "cspdiuxX%"))
 		{
@@ -72,7 +77,13 @@ int		ft_assign_flag(const char **s, t_form *form)
 int		ft_check_assign_prec(const char nb, const char **s, t_form *form)
 {
 	if (nb >= '0' && nb <= '9')
-		ft_assign_num(s, form);
+	{
+		while (**s >= '0' && **s <= '9')
+		{
+			form->prec = (form->prec * 10) + (**s - 48);
+			(*s)++;
+		}
+	}
 	else
 		return (ft_putstr("Precision error: put int behind ."));
 	return (1);

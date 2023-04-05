@@ -41,3 +41,16 @@ int     ft_putchar(char c)
     write(1, &c, 1);
     return (1);
 }
+
+void	ft_put_zero_space(t_form *form)
+{
+	while (form->form_len < form->min_fw)
+	{
+		if (form->zero)
+			ft_putchar('0');
+		else
+			ft_putchar(' ');
+		form->form_len++;
+	}
+	return ;
+}
