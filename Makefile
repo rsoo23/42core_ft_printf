@@ -10,28 +10,38 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = libftprintf.a
+NAME = ft_printf.a
 CC = gcc
-CFLAGS = -Wall -Werror -Wextra -fsanitize=address -g
+CFLAGS = -Wall -Werror -Wextra
 AR = ar rcs
 RM = rm -rf
-CFILES = ft_printf.c ft_print_hex.c ft_print_nbr.c ft_print_ptr.c \
-ft_print_utils.c
+CFILES = ft_format_check ft_print_hex ft_print_nbr ft_print_ptr ft_printf ft_utils
+CFILES_B = ft_format_check_bonus ft_format_check_bonus1 ft_print_hex_bonus ft_print_int_bonus ft_print_ptr_bonus ft_print_uint_bonus ft_printf_bonus ft_utils_bonus ft_utils_bonus1
 
-OBJS = $(CFILES:.c=.o)
+SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, $(CFILES)))
+BONUS = $(addprefix $(BONUSDIR), $(addsuffix .c, $(CFILES_B)))
+SRCSDIR = srcs/
+BONUSDIR = bonus/
+OBJS = $(SRCS:.c=.o)
+OBJS_B = $(BONUS:.c=.o)
 
-$(OBJS): $(CFILES)
+%.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
+
+all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(AR) $(NAME) $(OBJS)
 
-all: $(NAME)
+bonus: $(OBJS) $(OBJS_B)
+	$(AR) $(NAME) $(OBJS) $(OBJS_B)
 
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJS) $(OBJS_B)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
+
+.PHONY = re all clean fclean bonus
