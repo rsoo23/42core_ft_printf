@@ -12,7 +12,7 @@
 
 #include "ft_printf.h"
 
-int		ft_checkspec_all(const char *s)
+int	ft_checkspec_all(const char *s)
 {
 	if (ft_find_char(s) == '0')
 		return (ft_putstr("missing specifier, valid = cspdiuxX%"));
@@ -39,7 +39,7 @@ char	ft_find_char(const char *s)
 }
 
 // check if the char is valid
-int		ft_valid_spec(char spec, char *spec_str)
+int	ft_valid_spec(char spec, char *spec_str)
 {
 	while (*spec_str)
 	{

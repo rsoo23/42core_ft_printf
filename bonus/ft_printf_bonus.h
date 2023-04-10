@@ -10,29 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FT_PRINT_BONUS_H
-# define FT_PRINT_BONUS_H
+#ifndef  FT_PRINTF_BONUS_H
+# define FT_PRINTF_BONUS_H
 
-#include <unistd.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <stdint.h>
-#include <stdarg.h>
-#include <stdio.h>
+# include <unistd.h>
+# include <stdint.h>
+# include <stdlib.h>
+# include <stdint.h>
+# include <stdarg.h>
+// #include <stdio.h>
 
 typedef struct s_form
 {
-	int		hash; // #
-	int		zero; // 0
-	int		plus; // +
-	int		minus; // -
-	int		space; // ' ' 
-	int		min_fw; // int
-	int		prec_exist; // indicates presence of .
-	int		prec;   // int (0 onwards)
-	int		form_len; 
-	char	spec;   // char
-} t_form;
+	int		hash;
+	int		zero;
+	int		plus;
+	int		minus;
+	int		space;
+	int		min_fw;
+	int		prec_exist;
+	int		prec;
+	int		form_len;
+	char	spec;
+}				t_form;
 
 // ft_format_check_bonus.c
 int		ft_valid_flag(const char s, char *flag_str);
@@ -58,7 +58,7 @@ int		ft_putchar(char c);
 int		ft_hex_len(uintptr_t nb);
 void	ft_puthex_hash_zero(t_form *form);
 void	ft_puthex(unsigned int nb, t_form *form);
-void    ft_puthex_b(unsigned int nb, t_form *form);
+void	ft_puthex_b(unsigned int nb, t_form *form);
 void	ft_puthex_hash(unsigned int nb, t_form *form);
 // ft_print_ptr_bonus.c
 void	ft_put_ptr_b(uintptr_t nb, t_form *form);
@@ -67,12 +67,12 @@ int		ft_put_ptr(uintptr_t nb);
 // ft_print_int_bonus.c
 void	ft_putnbr_int(int nb, t_form *form);
 void	ft_numlen_int_b(int nb, t_form *form);
-void    ft_putnbr_int_b(int nb, t_form *form);
+void	ft_putnbr_int_b(int nb, t_form *form);
 void	ft_int_space_plus(int nb, t_form *form);
 // ft_print_uint_bonus.c
 void	ft_uint_space_plus(int nb, t_form *form);
 void	ft_putnbr_uint(unsigned int nb, t_form *form);
 void	ft_numlen_uint_b(unsigned int nb, t_form *form);
-void    ft_putnbr_uint_b(unsigned int nb, t_form *form);
+void	ft_putnbr_uint_b(unsigned int nb, t_form *form);
 
 #endif

@@ -12,20 +12,20 @@
 
 #include "ft_printf_bonus.h"
 
-int     ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        ft_putchar(str[i]);
-        i++;
-    }
-    return (i);
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+	return (i);
 }
 
-int		ft_valid_input(const char c, char *str)
+int	ft_valid_input(const char c, char *str)
 {
 	while (str)
 	{
@@ -36,10 +36,10 @@ int		ft_valid_input(const char c, char *str)
 	return (0);
 }
 
-int     ft_putchar(char c)
+int	ft_putchar(char c)
 {
-    write(1, &c, 1);
-    return (1);
+	write(1, &c, 1);
+	return (1);
 }
 
 void	ft_put_zero_space(t_form *form)

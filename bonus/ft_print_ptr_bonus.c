@@ -18,29 +18,29 @@ void	ft_put_ptr_b(uintptr_t nb, t_form *form)
 	if (form->minus == 1)
 		ft_put_ptr(nb);
 	while (form->form_len < form->min_fw)
-    {
+	{
 		ft_putchar(' ');
-        form->form_len++;
-    }
-    if (form->minus == 0)
+		form->form_len++;
+	}
+	if (form->minus == 0)
 		ft_put_ptr(nb);
 }
 
-int		ft_put_ptr(uintptr_t nb)
+int	ft_put_ptr(uintptr_t nb)
 {
-    if (nb == 0)
-        return (ft_putstr("(nil)"));
-    else
+	if (nb == 0)
+		return (ft_putstr("(nil)"));
+	else
 	{
-    	ft_putstr("0x");
-        ft_puthex_ptr(nb);
+		ft_putstr("0x");
+		ft_puthex_ptr(nb);
 	}
 	return (0);
 }
 
 void	ft_puthex_ptr(uintptr_t nb)
 {
-    if (nb >= 16)
-        ft_puthex_ptr(nb / 16);
-    ft_putchar("0123456789abcdef"[nb % 16]);
+	if (nb >= 16)
+		ft_puthex_ptr(nb / 16);
+	ft_putchar("0123456789abcdef"[nb % 16]);
 }

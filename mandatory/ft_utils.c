@@ -12,29 +12,21 @@
 
 #include "ft_printf.h"
 
-int     ft_putchar(char c)
+int	ft_putchar(char c)
 {
-    if (!c)
-        return (0);
-    write(1, &c, 1);
-    return (1);
+	write(1, &c, 1);
+	return (1);
 }
 
-int     ft_putstr(char *str)
+int	ft_putstr(char *str)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (str[i])
-    {
-        ft_putchar(str[i]);
-        i++;
-    }
-    return (i);
-}
-
-int		ft_put_percent(void)
-{
-    ft_putchar('%');
-    return (1);
+	i = 0;
+	while (str[i])
+	{
+		ft_putchar(str[i]);
+		i++;
+	}
+	return (i);
 }

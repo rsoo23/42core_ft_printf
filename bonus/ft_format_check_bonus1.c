@@ -13,7 +13,7 @@
 #include "ft_printf_bonus.h"
 
 // checks for special rules, '-0', ' +', flag duplicates, 
-int		ft_check_rule(t_form *form)
+int	ft_check_rule(t_form *form)
 {
 	if (ft_check_flag_dup(form) != 1)
 		return (0);
@@ -27,14 +27,14 @@ int		ft_check_rule(t_form *form)
 		return (ft_putstr("Error: space only compatible with %di"));
 	if (form->prec != 0 && !ft_valid_spec(form->spec, "s"))
 		return (ft_putstr("Error: prec only compatible with %s"));
-	if (form->minus == 1 && form->zero == 1) // -0: ignore zero
+	if (form->minus == 1 && form->zero == 1)
 		form->zero = 0;
-	if (form->space == 1 && form->plus == 1) // +space: ignore space
+	if (form->space == 1 && form->plus == 1)
 		form->space = 0;
 	return (1);
 }
 
-int		ft_check_flag_dup(t_form *form)
+int	ft_check_flag_dup(t_form *form)
 {
 	if (form->hash > 1)
 		return (ft_putstr("Flag duplicate error: #"));

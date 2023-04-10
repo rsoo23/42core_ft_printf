@@ -12,7 +12,7 @@
 
 #include "ft_printf_bonus.h"
 
-int		ft_check_assign_form(const char **s, t_form *form)
+int	ft_check_assign_form(const char **s, t_form *form)
 {
 	(*s)++;
 	while (**s)
@@ -39,10 +39,9 @@ int		ft_check_assign_form(const char **s, t_form *form)
 			return (1);
 		}
 	}
-	return (ft_putstr("Format error: %[flag][mfw][.precision][spec]"));
 }
 
-int		ft_valid_flag(const char s, char *flag_str)
+int	ft_valid_flag(const char s, char *flag_str)
 {
 	while (*flag_str)
 	{
@@ -53,18 +52,18 @@ int		ft_valid_flag(const char s, char *flag_str)
 	return (0);
 }
 
-int		ft_assign_flag(const char **s, t_form *form)
+int	ft_assign_flag(const char **s, t_form *form)
 {
 	while (ft_valid_flag(**s, "-+0# "))
 	{
 		if (**s == '#')
-			form->hash++; 
+			form->hash++;
 		else if (**s == '0')
-			form->zero++; 
+			form->zero++;
 		else if (**s == '+')
-			form->plus++; 
+			form->plus++;
 		else if (**s == '-')
-			form->minus++; 
+			form->minus++;
 		else if (**s == ' ')
 			form->space++;
 		else if (ft_valid_input(**s, "123456789.cspdiuxX%"))
@@ -74,7 +73,7 @@ int		ft_assign_flag(const char **s, t_form *form)
 	return (1);
 }
 
-int		ft_check_assign_prec(const char nb, const char **s, t_form *form)
+int	ft_check_assign_prec(const char nb, const char **s, t_form *form)
 {
 	if (nb >= '0' && nb <= '9')
 	{
@@ -89,7 +88,7 @@ int		ft_check_assign_prec(const char nb, const char **s, t_form *form)
 	return (1);
 }
 
-int		ft_valid_spec(const char s, char *spec_str)
+int	ft_valid_spec(const char s, char *spec_str)
 {
 	while (*spec_str)
 	{
