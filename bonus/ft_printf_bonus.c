@@ -69,5 +69,6 @@ int main(void)
     // printf("%d\n", printf("%-10.7s", "cheese"));
     // printf("%d\n", ft_printf("%-10.7s", "cheese"));
 
-    // printf("%d\n", ft_printf("%p", 'a'));
+    // printf("%4", 'a');
+    ft_printf("char: %#c", 'a');
 }
