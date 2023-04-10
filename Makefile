@@ -18,11 +18,11 @@ RM = rm -rf
 CFILES = ft_format_check ft_print_hex ft_print_nbr ft_print_ptr ft_printf ft_utils
 CFILES_B = ft_format_check_bonus ft_format_check_bonus1 ft_print_hex_bonus ft_print_int_bonus ft_print_ptr_bonus ft_print_uint_bonus ft_printf_bonus ft_utils_bonus ft_utils_bonus1
 
-SRCS = $(addprefix $(SRCSDIR), $(addsuffix .c, $(CFILES)))
+MAND = $(addprefix $(MANDIR), $(addsuffix .c, $(CFILES)))
 BONUS = $(addprefix $(BONUSDIR), $(addsuffix .c, $(CFILES_B)))
-SRCSDIR = srcs/
+MANDIR = mandatory/
 BONUSDIR = bonus/
-OBJS = $(SRCS:.c=.o)
+OBJS = $(MAND:.c=.o)
 OBJS_B = $(BONUS:.c=.o)
 
 %.o: %.c

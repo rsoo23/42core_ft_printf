@@ -78,3 +78,6 @@ ft_printf("%")
 ft_printf("%d")
 ft_printf("testing", )
 putting 0 behind .
+
+Things to note:
+- why is char promoted to int?
