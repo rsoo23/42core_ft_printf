@@ -21,7 +21,7 @@
 
 //ft_printf.c
 int		ft_printf(const char *format, ...);
-int		ft_parse(va_list ap, const char *s, int len);
+int		ft_parse(va_list ap, const char *s);
 //ft_print_hex.c
 int		ft_puthex(unsigned int nb, char format);
 int		ft_hex_len(uintptr_t nb);

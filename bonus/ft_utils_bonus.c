@@ -32,7 +32,7 @@ int	ft_parse_bonus(va_list ap, const char **s)
 
 	form = malloc(sizeof(t_form));
 	ft_init_form(form);
-	if (ft_check_assign_form(s, form) && ft_check_rule(form))
+	if (ft_check_assign_form(s, form) == 1 && ft_check_rule(form))
 	{
 		if (form->spec == 'c')
 			ft_putchar_b(va_arg(ap, int), form);

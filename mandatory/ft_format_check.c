@@ -16,7 +16,7 @@ int	ft_checkspec_all(const char *s)
 {
 	if (ft_find_char(s) == '0')
 		return (ft_putstr("missing specifier, valid = cspdiuxX%"));
-	if (ft_valid_spec(ft_find_char(s), "cspdiuxX%") == 0)
+	if (ft_valid_spec(ft_find_char(s), "cspdiuxX") == 0)
 		return (ft_putstr("invalid specifier, valid = cspdiuxX%"));
 	return (1);
 }
@@ -29,10 +29,10 @@ char	ft_find_char(const char *s)
 	i = 0;
 	while (s[i])
 	{
-		if (s[i] >= 'a' && s[i] <= 'z')
+		if ((s[i] >= 'a' && s[i] <= 'z') || (s[i] >= 'A' && s[i] <= 'Z'))
 			return (s[i]);
-		if (s[i] >= 'A' && s[i] <= 'Z')
-			return (s[i]);
+		if (s[i] == '%')
+			return ('%');
 		i++;
 	}
 	return ('0');
@@ -43,7 +43,7 @@ int	ft_valid_spec(char spec, char *spec_str)
 {
 	while (*spec_str)
 	{
-		if (spec == *spec_str)
+		if (spec == *spec_str || spec == '%')
 			return (1);
 		spec_str++;
 	}

@@ -33,12 +33,12 @@ int	ft_check_assign_form(const char **s, t_form *form)
 			(*s)++;
 			ft_check_assign_prec(**s, s, form);
 		}
-		if (ft_valid_spec(**s, "cspdiuxX%"))
-		{
-			form->spec = **s;
+		if (ft_valid_spec(s, "cspdiuxX%", form) == 1)
 			return (1);
-		}
+		else
+			break ;
 	}
+	return (ft_putstr("Format error: %[flag][.prec][mfw][spec]"));
 }
 
 int	ft_valid_flag(const char s, char *flag_str)
@@ -88,13 +88,17 @@ int	ft_check_assign_prec(const char nb, const char **s, t_form *form)
 	return (1);
 }
 
-int	ft_valid_spec(const char s, char *spec_str)
+int	ft_valid_spec(const char **s, char *spec_str, t_form *form)
 {
 	while (*spec_str)
 	{
-		if (s == *spec_str)
+		if (**s == *spec_str)
+		{
+			form->spec = **s;
 			return (1);
+		}
 		spec_str++;
 	}
-	return (ft_putstr("Specifier error: valid = cspdiuxX%"));
+	ft_putstr("Specifier error: valid = cspdiuxX%");
+	return (0);
 }

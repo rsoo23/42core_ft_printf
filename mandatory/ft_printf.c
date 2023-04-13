@@ -29,7 +29,7 @@ int	ft_printf(const char *s, ...)
 		{
 			s++;
 			if (ft_checkspec_all(s) == 1)
-				len += ft_parse(ap, s, len);
+				len += ft_parse(ap, s);
 		}
 		if (*s != '\0')
 			s++;
@@ -38,8 +38,11 @@ int	ft_printf(const char *s, ...)
 	return (len);
 }
 
-int	ft_parse(va_list ap, const char *s, int len)
+int	ft_parse(va_list ap, const char *s)
 {
+	int	len;
+
+	len = 0;
 	if (*s == 's')
 		len += ft_putstr(va_arg(ap, char *));
 	else if (*s == 'c')
@@ -53,17 +56,19 @@ int	ft_parse(va_list ap, const char *s, int len)
 	else if (*s == 'x' || *s == 'X')
 		len += ft_puthex(va_arg(ap, unsigned int), *s);
 	else if (*s == '%')
-		len += ft_putchar(va_arg(ap, int));
+		len += ft_putchar('%');
 	return (len);
 }
+
+// #include <stdio.h>
 
 // int main(void)
 // {
 //     %c
 //     printf("%d\n", ft_printf("%c", 'a'));
 
-//     %s
-//     printf("%d\n", ft_printf("%s", "cheese"));
+// 	   %s
+//     printf("%d\n", ft_printf("%s everyone", ""));
 
 //     %p
 //     char    c = 'b';
@@ -86,7 +91,7 @@ int	ft_parse(va_list ap, const char *s, int len)
 //     printf("%d\n", printf("%X", -2));
 
 //     %%
-//     printf("%d\n", ft_printf("%%", "tseting"));
+//     printf("%d\n", ft_printf("%%"));
 
 //     printf("%i\n", "testing");
 //     printf("%d\n", ft_printf("%p", 'a'));

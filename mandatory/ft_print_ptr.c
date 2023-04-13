@@ -15,7 +15,7 @@
 int	ft_put_ptr(uintptr_t nb)
 {
 	if (nb == 0)
-		return (ft_putstr("(nil)"));
+		return (ft_putstr("0x0"));
 	else
 	{
 		ft_putstr("0x");

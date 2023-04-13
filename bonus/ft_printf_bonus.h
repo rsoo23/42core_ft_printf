@@ -36,7 +36,7 @@ typedef struct s_form
 
 // ft_format_check_bonus.c
 int		ft_valid_flag(const char s, char *flag_str);
-int		ft_valid_spec(const char s, char *spec_str);
+int		ft_valid_spec(const char **s, char *spec_str, t_form *form);
 int		ft_assign_flag(const char **s, t_form *form);
 int		ft_check_assign_form(const char **s, t_form *form);
 int		ft_check_assign_prec(const char nb, const char **s, t_form *form);
