@@ -3,5 +3,5 @@
 
 int main()
 {
-	printf("%s everywhere", "");
+	printf("%5s", "");
 }

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 int	ft_check_assign_form(const char **s, t_form *form)
 {
@@ -33,7 +33,7 @@ int	ft_check_assign_form(const char **s, t_form *form)
 			(*s)++;
 			ft_check_assign_prec(**s, s, form);
 		}
-		if (ft_valid_spec(s, "cspdiuxX%", form) == 1)
+		if (ft_valid_assign_spec(**s, "cspdiuxX%", form) == 1)
 			return (1);
 		else
 			break ;
@@ -84,17 +84,17 @@ int	ft_check_assign_prec(const char nb, const char **s, t_form *form)
 		}
 	}
 	else
-		return (ft_putstr("Precision error: put int behind ."));
+		return (0);
 	return (1);
 }
 
-int	ft_valid_spec(const char **s, char *spec_str, t_form *form)
+int	ft_valid_assign_spec(const char s, char *spec_str, t_form *form)
 {
 	while (*spec_str)
 	{
-		if (**s == *spec_str)
+		if (s == *spec_str)
 		{
-			form->spec = **s;
+			form->spec = s;
 			return (1);
 		}
 		spec_str++;

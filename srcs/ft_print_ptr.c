@@ -10,12 +10,12 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 void	ft_put_ptr_b(uintptr_t nb, t_form *form)
 {
 	form->form_len += 2 + ft_hex_len(nb);
-	if (form->minus == 1)
+	if (form->minus != 0)
 		ft_put_ptr(nb);
 	while (form->form_len < form->min_fw)
 	{
@@ -28,13 +28,8 @@ void	ft_put_ptr_b(uintptr_t nb, t_form *form)
 
 int	ft_put_ptr(uintptr_t nb)
 {
-	if (nb == 0)
-		return (ft_putstr("(nil)"));
-	else
-	{
-		ft_putstr("0x");
-		ft_puthex_ptr(nb);
-	}
+	ft_putstr("0x");
+	ft_puthex_ptr(nb);
 	return (0);
 }
 

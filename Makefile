@@ -15,29 +15,24 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar rcs
 RM = rm -rf
-CFILES = ft_format_check ft_print_hex ft_print_nbr ft_print_ptr ft_printf ft_utils
-CFILES_B = ft_format_check_bonus ft_format_check_bonus1 ft_print_hex_bonus ft_print_int_bonus ft_print_ptr_bonus ft_print_uint_bonus ft_printf_bonus ft_utils_bonus ft_utils_bonus1
+CFILES = ft_format_check ft_format_check_1 ft_print_hex ft_print_int ft_print_ptr ft_print_uint ft_printf ft_utils ft_utils_1
 
-MAND = $(addprefix $(MANDIR), $(addsuffix .c, $(CFILES)))
-BONUS = $(addprefix $(BONUSDIR), $(addsuffix .c, $(CFILES_B)))
-MANDIR = mandatory/
-BONUSDIR = bonus/
-OBJS = $(MAND:.c=.o)
-OBJS_B = $(BONUS:.c=.o)
+SRCS = $(addprefix $(srcs), $(addsuffix .c, $(CFILES)))
+srcs = srcs/
+OBJS_B = $(SRCS:.c=.o)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(NAME) $(OBJS)
+$(NAME): $(OBJS_B)
+	$(AR) $(NAME) $(OBJS_B)
 
-bonus: $(OBJS) $(OBJS_B)
-	$(AR) $(NAME) $(OBJS) $(OBJS_B)
+bonus: $(NAME)
 
 clean:
-	$(RM) $(OBJS) $(OBJS_B)
+	$(RM) $(OBJS_B)
 
 fclean: clean
 	$(RM) $(NAME)

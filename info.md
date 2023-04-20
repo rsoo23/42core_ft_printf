@@ -40,7 +40,7 @@ Summary:
 | [ ] ' '      | Adds ' ' in front of + num |       d i         | ignore when ' +' | done 
 | [ ] 0        | Zero padding               |       d i u x X   | ignore when '-0' | done
 | [ ] -        | Left adjust                | c s p d i u x X % |                  | no need
-| [ ] precision| Truncates string           |   s               |                  | done
+| [ ] precision| Truncates string           |   s   d i u x X   |                  | done
 | [ ] mfw      | Space padding              | c s p d i u x X % |                  | no need
 Done:
 - c, p, x, X, %

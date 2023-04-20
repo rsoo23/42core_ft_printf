@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 void	ft_puthex_b(unsigned int nb, t_form *form)
 {
@@ -45,6 +45,9 @@ void	ft_puthex_hash(unsigned int nb, t_form *form)
 		else if (form->hash && form->spec == 'X')
 			ft_putstr("0X");
 	}
+	if (form->prec_exist)
+		while (form->form_len++ < form->prec + 1)
+			ft_putchar('0');
 	ft_puthex(nb, form);
 	return ;
 }

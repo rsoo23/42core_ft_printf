@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 int	ft_printf(const char *s, ...)
 {
@@ -26,17 +26,46 @@ int	ft_printf(const char *s, ...)
 		if (*s != '%')
 			len += ft_putchar(*s);
 		else
-			len += ft_parse_bonus(ap, &s);
+			len += ft_parse(ap, &s);
 		s++;
 	}
 	va_end(ap);
 	return (len);
 }
 
+int	ft_parse(va_list ap, const char **s)
+{
+	t_form	*form;
+
+	form = malloc(sizeof(t_form));
+	ft_init_form(form);
+	if (ft_check_assign_form(s, form) == 1 && ft_check_rule(form) == 1)
+	{
+		if (form->spec == 'c')
+			ft_putchar_b(va_arg(ap, int), form);
+		else if (form->spec == 'p')
+			ft_put_ptr_b(va_arg(ap, uintptr_t), form);
+		else if (form->spec == 'x' || form->spec == 'X')
+			ft_puthex_b(va_arg(ap, unsigned int), form);
+		else if (form->spec == '%')
+			form->form_len += ft_putchar('%');
+		else if (form->spec == 'd' || form->spec == 'i')
+			ft_putnbr_int_b(va_arg(ap, int), form);
+		else if (form->spec == 'u')
+			ft_putnbr_uint_b(va_arg(ap, unsigned int), form);
+		else if (form->spec == 's')
+			ft_putstr_b(va_arg(ap, char *), form);
+	}
+	free(form);
+	return (form->form_len);
+}
+
+// #include<stdio.h>
+
 // int	main(void)
 // {
 //     %c
-//     printf("%d\n", ft_printf("test: %c", 'z'));
+//     printf("%d", ft_printf("%5c now you see", '\0'));
 //     printf("%d\n", printf("test: %10c", 'z'));
 
 //     %p
@@ -65,8 +94,8 @@ int	ft_printf(const char *s, ...)
 //     printf("%d\n", printf("%-4u", i));
 
 // 	   %s flags: - prec mfw
-//     printf("%d\n", printf("%-10.7s", "cheese"));
-//     printf("%d\n", ft_printf("%-10.7s", "cheese"));
+    // printf("%d\n", ft_printf("%10s", ""));
+    // printf("%d\n", printf("%10s", ""));
 
 //     printf("%4", 'a');
 //     ft_printf("char: %#c", 'a');

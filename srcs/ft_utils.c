@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 void	ft_init_form(t_form *form)
 {
@@ -26,48 +26,47 @@ void	ft_init_form(t_form *form)
 	form->spec = '0';
 }
 
-int	ft_parse_bonus(va_list ap, const char **s)
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
-	t_form	*form;
+	size_t	i;
 
-	form = malloc(sizeof(t_form));
-	ft_init_form(form);
-	if (ft_check_assign_form(s, form) == 1 && ft_check_rule(form))
+	i = 0;
+	if (n == 0)
+		return (0);
+	while (s1[i] && s2[i] && i < n - 1)
 	{
-		if (form->spec == 'c')
-			ft_putchar_b(va_arg(ap, int), form);
-		else if (form->spec == 'p')
-			ft_put_ptr_b(va_arg(ap, uintptr_t), form);
-		else if (form->spec == 'x' || form->spec == 'X')
-			ft_puthex_b(va_arg(ap, unsigned int), form);
-		else if (form->spec == '%')
-			form->form_len += ft_putchar('%');
-		else if (form->spec == 'd' || form->spec == 'i')
-			ft_putnbr_int_b(va_arg(ap, int), form);
-		else if (form->spec == 'u')
-			ft_putnbr_uint_b(va_arg(ap, unsigned int), form);
-		else if (form->spec == 's')
-			ft_putstr_b(va_arg(ap, char *), form);
+		if (s1[i] != s2[i])
+			break ;
+		i++;
 	}
-	return (form->form_len);
+	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
 
 void	ft_putchar_b(char c, t_form *form)
 {
-	if (form->minus)
-		form->form_len += ft_putchar(c);
-	while (form->form_len < form->min_fw - 1)
+	form->form_len++;
+	if (form->minus != 0)
+		ft_putchar(c);
+	while (form->form_len < form->min_fw)
 	{
 		ft_putchar(' ');
 		form->form_len++;
 	}
-	if (!(form->minus))
-		form->form_len += ft_putchar(c);
+	if (form->minus == 0)
+		ft_putchar(c);
 }
 
 void	ft_putstr_b(char *s, t_form *form)
 {
-	if (form->minus == 1)
+	if (!s)
+		s = ft_strdup("(null)");
+	if (form->prec_exist)
+		while (form->form_len < form->prec && s[form->form_len])
+			form->form_len++;
+	else
+		while (s[form->form_len])
+			form->form_len++;
+	if (form->minus != 0)
 		ft_putstr_prec(s, form);
 	while (form->form_len < form->min_fw)
 	{
@@ -76,18 +75,19 @@ void	ft_putstr_b(char *s, t_form *form)
 	}
 	if (form->minus == 0)
 		ft_putstr_prec(s, form);
+	if (ft_strncmp(s, "(null)", 10) == 0)
+		free(s);
 }
 
 void	ft_putstr_prec(char *s, t_form *form)
 {
-	if (form->prec_exist && form->prec < form->form_len)
+	int	strcount;
+
+	strcount = 0;
+	if (form->prec_exist)
 	{
-		while (form->form_len < form->prec)
-		{
-			ft_putchar(*s);
-			s++;
-			form->form_len++;
-		}
+		while (strcount < form->prec && s[strcount])
+			ft_putchar(s[strcount++]);
 	}
 	else
 	{
@@ -95,7 +95,6 @@ void	ft_putstr_prec(char *s, t_form *form)
 		{
 			ft_putchar(*s);
 			s++;
-			form->form_len++;
 		}
 	}
 	return ;

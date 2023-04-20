@@ -10,23 +10,23 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf_bonus.h"
+#include "../includes/ft_printf.h"
 
 // checks for special rules, '-0', ' +', flag duplicates, 
 int	ft_check_rule(t_form *form)
 {
 	if (ft_check_flag_dup(form) != 1)
 		return (0);
-	if (form->hash == 1 && !ft_valid_spec(form->spec, "xX"))
+	if (form->hash == 1 && !ft_valid_assign_spec(form->spec, "xX", form))
 		return (ft_putstr("Error: # only compatible with %xX"));
-	if (form->zero == 1 && !ft_valid_spec(form->spec, "diuxX"))
+	if (form->zero == 1 && !ft_valid_assign_spec(form->spec, "diuxX", form))
 		return (ft_putstr("Error: 0 only compatible with %diuxX"));
-	if (form->plus == 1 && !ft_valid_spec(form->spec, "di"))
+	if (form->plus == 1 && !ft_valid_assign_spec(form->spec, "di", form))
 		return (ft_putstr("Error: + only compatible with %di"));
-	if (form->space == 1 && !ft_valid_spec(form->spec, "di"))
+	if (form->space == 1 && !ft_valid_assign_spec(form->spec, "di", form))
 		return (ft_putstr("Error: space only compatible with %di"));
-	if (form->prec != 0 && !ft_valid_spec(form->spec, "s"))
-		return (ft_putstr("Error: prec only compatible with %s"));
+	if (form->prec != 0 && !ft_valid_assign_spec(form->spec, "sdiuxX", form))
+		return (ft_putstr("Error: prec only compatible with %sdiuxX"));
 	if (form->minus == 1 && form->zero == 1)
 		form->zero = 0;
 	if (form->space == 1 && form->plus == 1)
@@ -38,12 +38,8 @@ int	ft_check_flag_dup(t_form *form)
 {
 	if (form->hash > 1)
 		return (ft_putstr("Flag duplicate error: #"));
-	if (form->zero > 1)
-		return (ft_putstr("Flag duplicate error: 0"));
 	if (form->plus > 1)
 		return (ft_putstr("Flag duplicate error: +"));
-	if (form->minus > 1)
-		return (ft_putstr("Flag duplicate error: -"));
 	if (form->space > 1)
 		return (ft_putstr("Flag duplicate error: space"));
 	return (1);
