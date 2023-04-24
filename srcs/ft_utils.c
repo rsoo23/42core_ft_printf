@@ -58,8 +58,10 @@ void	ft_putchar_b(char c, t_form *form)
 
 void	ft_putstr_b(char *s, t_form *form)
 {
-	if (!s)
+	if ((!s && form->prec >= 6) || (!s && !form->prec_exist))
 		s = ft_strdup("(null)");
+	else if (!s && form->prec < 6)
+		return ;
 	if (form->prec_exist)
 		while (form->form_len < form->prec && s[form->form_len])
 			form->form_len++;

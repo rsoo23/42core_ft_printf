@@ -12,28 +12,45 @@
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbr_int_b(int nb, t_form *form)
+void	ft_put_int_b(int nb, t_form *form)
 {
-	ft_numlen_int_b(nb, form);
-	if (form->plus || (nb >= 0 && form->space))
+	form->form_len += ft_len_int(nb);
+	if ((nb >= 0 && form->plus) || (nb >= 0 && form->space))
 		form->form_len++;
+	if (!form->minus && nb != 0 && form->min_fw && form->min_fw <= form->prec)
+		form->zero = 1;
+	if (!form->zero && form->prec_exist && form->prec == 0 && nb == 0)
+		form->form_len--;
 	if (form->minus != 0)
 		ft_int_space_plus(nb, form);
-	else if (form->plus)
+	else if (form->plus && nb > 0)
 	{
 		ft_putchar('+');
 		form->plus = 2;
 	}
-	ft_put_zero_space(form);
+	if (nb < 0 && form->zero)
+	{
+		ft_putchar('-');
+		if (nb != -2147483648)
+			nb = -nb;
+		form->prec++;
+	}
+	ft_put_int_zero_space(&nb, form);
 	if (form->minus == 0)
 		ft_int_space_plus(nb, form);
 }
 
 void	ft_int_space_plus(int nb, t_form *form)
 {
+	if (form->prec_exist && form->prec == 0 && nb == 0)
+	{
+		if (form->min_fw == 0)
+			form->form_len = 0;
+		return ;
+	}
 	if (nb >= 0 && form->space)
 		ft_putchar(' ');
-	else if (nb >= 0 && form->plus != 2 && form-> plus == 1)
+	else if (nb >= 0 && form-> plus == 1)
 		ft_putchar('+');
 	if (form->prec_exist && form->form_len <= form->prec)
 	{
@@ -49,46 +66,76 @@ void	ft_int_space_plus(int nb, t_form *form)
 			form->form_len++;
 		}
 	}
-	if ((long)nb == (long)2147483648)
-		write(1, "2147483648", 11);
-	else
-		ft_putnbr_int(nb);
+	ft_put_int(nb, form);
 	return ;
 }
 
-void	ft_numlen_int_b(int nb, t_form *form)
+void	ft_put_int_zero_space(int *nb, t_form *form)
 {
-	if (nb == -2147483648)
+	if (form->min_fw && !form->minus && form->prec > form->form_len)
 	{
-		form->form_len += 11;
+		if (*nb < 0)
+			form->prec++;
+		while (form->form_len < form->min_fw - (form->prec - ft_len_int(*nb)))
+		{
+			ft_putchar(' ');
+			form->form_len++;
+		}
+		if (*nb < 0)
+		{
+			ft_putchar('-');
+			*nb = -(*nb);
+		}
+		while (form->form_len < form->min_fw)
+		{
+			ft_putchar('0');
+			form->form_len++;
+		}
 		return ;
 	}
+	ft_put_nbr_zero_space(*nb, form);
+}
+
+int	ft_len_int(int nb)
+{
+	int	i;
+
+	i = 0;
+	if (nb == -2147483648)
+		return (11);
 	if (nb <= 0)
 	{
-		form->form_len++;
+		i++;
 		nb = -nb;
 	}
 	while (nb > 0)
 	{
-		form->form_len++;
+		i++;
 		nb /= 10;
 	}
-	return ;
+	return (i);
 }
 
-void	ft_putnbr_int(int nb)
+void	ft_put_int(int nb, t_form *form)
 {
 	if (nb == -2147483648)
+	{
+		if (form->prec > 10 || form->zero)
+		{
+			write(1, "2147483648", 10);
+			return ;
+		}
 		write(1, "-2147483648", 11);
+	}
 	else if (nb < 0)
 	{
 		ft_putchar('-');
-		ft_putnbr_int(-nb);
+		ft_put_int(-nb, form);
 	}
 	else if (nb > 9)
 	{
-		ft_putnbr_int(nb / 10);
-		ft_putnbr_int(nb % 10);
+		ft_put_int(nb / 10, form);
+		ft_put_int(nb % 10, form);
 	}
 	else
 		ft_putchar(nb + 48);

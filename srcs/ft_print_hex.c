@@ -14,40 +14,50 @@
 
 void	ft_puthex_b(unsigned int nb, t_form *form)
 {
-	if (form->hash)
-		form->form_len += 2 + ft_hex_len(nb);
-	else
-		form->form_len += ft_hex_len(nb);
-	if (form->minus)
-		ft_puthex_hash(nb, form);
-	else if (!(form->minus) && form->zero)
-		ft_puthex_hash_zero(form);
-	ft_put_zero_space(form);
-	if (!(form->minus))
-		ft_puthex_hash(nb, form);
+	if (form->prec_exist && !form->prec && nb == 0 && form->min_fw == 0)
+		return ;
+	if (form->prec_exist && nb != 0 && form->min_fw <= form->prec)
+		form->zero = 1;
+	ft_hex_len(nb, form);
+	if (form->minus != 0)
+		ft_puthex_flag(nb, form);
+	else if (!form->minus && form->zero && form->hash)
+	{
+		ft_puthex_hash(form);
+		form->zero = 2;
+	}
+	if (form->zero && form->prec_exist && form->prec == 0 && nb == 0)
+		form->form_len--;
+	ft_put_uint_zero_space(nb, form);
+	if (!form->minus)
+		ft_puthex_flag(nb, form);
 }
 
-void	ft_puthex_hash_zero(t_form *form)
+void	ft_puthex_hash(t_form *form)
 {
 	if (form->hash && form->spec == 'x')
 		ft_putstr("0x");
 	else if (form->hash && form->spec == 'X')
 		ft_putstr("0X");
-	form->zero = 2;
 }
 
-void	ft_puthex_hash(unsigned int nb, t_form *form)
+void	ft_puthex_flag(unsigned int nb, t_form *form)
 {
-	if (form->zero != 2)
+	if (form->prec_exist && !form->prec && nb == 0)
 	{
-		if (form->hash && form->spec == 'x')
-			ft_putstr("0x");
-		else if (form->hash && form->spec == 'X')
-			ft_putstr("0X");
+		form->form_len--;
+		return ;
 	}
-	if (form->prec_exist)
-		while (form->form_len++ < form->prec + 1)
+	if (form->zero != 2 && nb != 0)
+		ft_puthex_hash(form);
+	if (form->prec_exist && form->form_len < form->prec)
+	{
+		while (form->form_len < form->prec)
+		{
 			ft_putchar('0');
+			form->form_len++;
+		}
+	}
 	ft_puthex(nb, form);
 	return ;
 }
@@ -63,17 +73,16 @@ void	ft_puthex(unsigned int nb, t_form *form)
 	return ;
 }
 
-int	ft_hex_len(uintptr_t nb)
+void	ft_hex_len(uintptr_t nb, t_form *form)
 {
-	int	len;
-
-	len = 0;
+	if ((form->hash && nb != 0) || form->spec == 'p')
+		form->form_len += 2;
 	if (nb == 0)
-		return (1);
+		form->form_len++;
 	while (nb > 0)
 	{
-		len++;
+		form->form_len++;
 		nb /= 16;
 	}
-	return (len);
+	return ;
 }

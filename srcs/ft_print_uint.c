@@ -12,32 +12,74 @@
 
 #include "../includes/ft_printf.h"
 
-void	ft_putnbr_uint_b(unsigned int nb, t_form *form)
+void	ft_put_uint_b(unsigned int nb, t_form *form)
 {
-	ft_numlen_uint_b(nb, form);
-	if (form->minus)
-		ft_putnbr_uint(nb, form);
-	ft_put_zero_space(form);
-	if (!(form->minus))
-		ft_putnbr_uint(nb, form);
+	form->form_len += ft_len_uint(nb);
+	if (form->prec_exist && nb != 0 && form->min_fw <= form->prec)
+		form->zero = 1;
+	if (!form->zero && form->prec_exist && form->prec == 0 && nb == 0)
+		form->form_len--;
+	if (form->minus != 0)
+		ft_put_uint_prec(nb, form);
+	ft_put_uint_zero_space(nb, form);
+	if (form->minus == 0)
+		ft_put_uint_prec(nb, form);
 }
 
-void	ft_numlen_uint_b(unsigned int nb, t_form *form)
+int	ft_len_uint(unsigned int nb)
 {
+	int	i;
+
+	i = 0;
 	if (nb == 0)
-		form->form_len++;
+		i++;
 	while (nb > 0)
 	{
-		form->form_len++;
+		i++;
 		nb /= 10;
 	}
+	return (i);
+}
+
+void	ft_put_uint_prec(unsigned int nb, t_form *form)
+{
+	if (form->prec_exist && form->prec == 0 && nb == 0)
+	{
+		if (form->min_fw == 0)
+			form->form_len = 0;
+		return ;
+	}
+	while (form->form_len < form->prec)
+	{
+		ft_putchar('0');
+		form->form_len++;
+	}
+	ft_put_uint(nb, form);
+}
+
+void	ft_put_uint(unsigned int nb, t_form *form)
+{
+	if (nb > 9)
+		ft_put_uint(nb / 10, form);
+	ft_putchar("0123456789"[nb % 10]);
 	return ;
 }
 
-void	ft_putnbr_uint(unsigned int nb, t_form *form)
+void	ft_put_uint_zero_space(unsigned int nb, t_form *form)
 {
-	if (nb > 9)
-		ft_putnbr_uint(nb / 10, form);
-	ft_putchar("0123456789"[nb % 10]);
-	return ;
+	if (form->min_fw && !form->minus && form->prec > form->form_len)
+	{
+		while (form->form_len < form->min_fw - (form->prec - ft_len_uint(nb)))
+		{
+			ft_putchar(' ');
+			form->form_len++;
+		}
+		while (form->form_len < form->min_fw)
+		{
+			ft_putchar('0');
+			form->form_len++;
+		}
+		return ;
+	}
+	ft_put_nbr_zero_space(nb, form);
 }

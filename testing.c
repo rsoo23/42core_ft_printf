@@ -3,5 +3,5 @@
 
 int main()
 {
-	printf("%5s", "");
+	printf("%d", 2147483648);
 }

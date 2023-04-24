@@ -15,7 +15,7 @@ CC = gcc
 CFLAGS = -Wall -Werror -Wextra
 AR = ar rcs
 RM = rm -rf
-CFILES = ft_format_check ft_format_check_1 ft_print_hex ft_print_int ft_print_ptr ft_print_uint ft_printf ft_utils ft_utils_1
+CFILES = ft_format_check ft_format_check_1 ft_print_hex ft_print_int ft_print_ptr ft_print_uint ft_printf ft_utils ft_utils_1 ft_utils_2
 
 SRCS = $(addprefix $(srcs), $(addsuffix .c, $(CFILES)))
 srcs = srcs/

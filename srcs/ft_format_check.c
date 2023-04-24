@@ -12,7 +12,7 @@
 
 #include "../includes/ft_printf.h"
 
-int	ft_check_assign_form(const char **s, t_form *form)
+int	ft_assign_form(const char **s, t_form *form)
 {
 	(*s)++;
 	while (**s)
@@ -31,7 +31,7 @@ int	ft_check_assign_form(const char **s, t_form *form)
 		{
 			form->prec_exist = 1;
 			(*s)++;
-			ft_check_assign_prec(**s, s, form);
+			ft_assign_prec(**s, s, form);
 		}
 		if (ft_valid_assign_spec(**s, "cspdiuxX%", form) == 1)
 			return (1);
@@ -66,14 +66,12 @@ int	ft_assign_flag(const char **s, t_form *form)
 			form->minus++;
 		else if (**s == ' ')
 			form->space++;
-		else if (ft_valid_input(**s, "123456789.cspdiuxX%"))
-			return (ft_putstr("Flag error: valid = #0+-space"));
 		(*s)++;
 	}
 	return (1);
 }
 
-int	ft_check_assign_prec(const char nb, const char **s, t_form *form)
+void	ft_assign_prec(const char nb, const char **s, t_form *form)
 {
 	if (nb >= '0' && nb <= '9')
 	{
@@ -83,9 +81,16 @@ int	ft_check_assign_prec(const char nb, const char **s, t_form *form)
 			(*s)++;
 		}
 	}
+	else if (nb == '-')
+	{
+		form->prec = 0;
+		(*s)++;
+		while (**s >= '0' && **s <= '9')
+			(*s)++;
+	}
 	else
-		return (0);
-	return (1);
+		form->prec = 0;
+	return ;
 }
 
 int	ft_valid_assign_spec(const char s, char *spec_str, t_form *form)

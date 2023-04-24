@@ -14,7 +14,10 @@
 
 void	ft_put_ptr_b(uintptr_t nb, t_form *form)
 {
-	form->form_len += 2 + ft_hex_len(nb);
+	if (!nb)
+		form->form_len += 5;
+	else
+		ft_hex_len(nb, form);
 	if (form->minus != 0)
 		ft_put_ptr(nb);
 	while (form->form_len < form->min_fw)
@@ -26,11 +29,15 @@ void	ft_put_ptr_b(uintptr_t nb, t_form *form)
 		ft_put_ptr(nb);
 }
 
-int	ft_put_ptr(uintptr_t nb)
+void	ft_put_ptr(uintptr_t nb)
 {
+	if (!nb)
+	{
+		ft_putstr("(nil)");
+		return ;
+	}
 	ft_putstr("0x");
 	ft_puthex_ptr(nb);
-	return (0);
 }
 
 void	ft_puthex_ptr(uintptr_t nb)

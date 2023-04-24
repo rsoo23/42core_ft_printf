@@ -39,7 +39,7 @@ int	ft_parse(va_list ap, const char **s)
 
 	form = malloc(sizeof(t_form));
 	ft_init_form(form);
-	if (ft_check_assign_form(s, form) == 1 && ft_check_rule(form) == 1)
+	if (ft_assign_form(s, form) == 1 && ft_check_rule(form) == 1)
 	{
 		if (form->spec == 'c')
 			ft_putchar_b(va_arg(ap, int), form);
@@ -50,9 +50,9 @@ int	ft_parse(va_list ap, const char **s)
 		else if (form->spec == '%')
 			form->form_len += ft_putchar('%');
 		else if (form->spec == 'd' || form->spec == 'i')
-			ft_putnbr_int_b(va_arg(ap, int), form);
+			ft_put_int_b(va_arg(ap, int), form);
 		else if (form->spec == 'u')
-			ft_putnbr_uint_b(va_arg(ap, unsigned int), form);
+			ft_put_uint_b(va_arg(ap, unsigned int), form);
 		else if (form->spec == 's')
 			ft_putstr_b(va_arg(ap, char *), form);
 	}
@@ -60,7 +60,10 @@ int	ft_parse(va_list ap, const char **s)
 	return (form->form_len);
 }
 
-// #include<stdio.h>
+// int main(void)
+// {
+// 	printf("%d", ft_printf("%0.20d", 42));
+// }
 
 // int	main(void)
 // {
@@ -100,3 +103,4 @@ int	ft_parse(va_list ap, const char **s)
 //     printf("%4", 'a');
 //     ft_printf("char: %#c", 'a');
 // }
+
