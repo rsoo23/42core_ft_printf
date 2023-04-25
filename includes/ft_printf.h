@@ -16,9 +16,8 @@
 # include <unistd.h>
 # include <stdint.h>
 # include <stdlib.h>
-# include <stdint.h>
 # include <stdarg.h>
-# include <stdio.h>
+// # include <stdio.h>
 
 typedef struct s_form
 {
@@ -55,9 +54,10 @@ int		ft_putstr(char *str);
 int		ft_putchar(char c);
 char	*ft_strdup(const char *s);
 // ft_utils_2.c
-void    ft_put_nbr_zero_space(int nb, t_form *form);
+void	ft_put_nbr_zero_space(int nb, t_form *form);
+void	ft_put_hex_zero_space(unsigned int nb, t_form *form);
 // ft_print_hex.c
-void	ft_hex_len(uintptr_t nb, t_form *form);
+int		ft_hex_len(uintptr_t nb, t_form *form);
 void	ft_puthex_hash(t_form *form);
 void	ft_puthex_flag(unsigned int nb, t_form *form);
 void	ft_puthex_b(unsigned int nb, t_form *form);

@@ -62,7 +62,7 @@ int	ft_parse(va_list ap, const char **s)
 
 // int main(void)
 // {
-// 	printf("%d", ft_printf("%0.20d", 42));
+// 	printf("%d", ft_printf("%02.0x", 0));
 // }
 
 // int	main(void)
@@ -97,10 +97,9 @@ int	ft_parse(va_list ap, const char **s)
 //     printf("%d\n", printf("%-4u", i));
 
 // 	   %s flags: - prec mfw
-    // printf("%d\n", ft_printf("%10s", ""));
-    // printf("%d\n", printf("%10s", ""));
+		// printf("%d\n", ft_printf("%10s", ""));
+		// printf("%d\n", printf("%10s", ""));
 
 //     printf("%4", 'a');
 //     ft_printf("char: %#c", 'a');
 // }
-

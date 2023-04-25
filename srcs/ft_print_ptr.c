@@ -14,28 +14,20 @@
 
 void	ft_put_ptr_b(uintptr_t nb, t_form *form)
 {
-	if (!nb)
-		form->form_len += 5;
-	else
-		ft_hex_len(nb, form);
-	if (form->minus != 0)
+	form->form_len += ft_hex_len(nb, form);
+	if (form->minus)
 		ft_put_ptr(nb);
 	while (form->form_len < form->min_fw)
 	{
 		ft_putchar(' ');
 		form->form_len++;
 	}
-	if (form->minus == 0)
+	if (!form->minus)
 		ft_put_ptr(nb);
 }
 
 void	ft_put_ptr(uintptr_t nb)
 {
-	if (!nb)
-	{
-		ft_putstr("(nil)");
-		return ;
-	}
 	ft_putstr("0x");
 	ft_puthex_ptr(nb);
 }

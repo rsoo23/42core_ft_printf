@@ -67,7 +67,6 @@ void	ft_int_space_plus(int nb, t_form *form)
 		}
 	}
 	ft_put_int(nb, form);
-	return ;
 }
 
 void	ft_put_int_zero_space(int *nb, t_form *form)

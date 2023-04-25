@@ -14,11 +14,9 @@
 
 void	ft_puthex_b(unsigned int nb, t_form *form)
 {
-	if (form->prec_exist && !form->prec && nb == 0 && form->min_fw == 0)
-		return ;
 	if (form->prec_exist && nb != 0 && form->min_fw <= form->prec)
 		form->zero = 1;
-	ft_hex_len(nb, form);
+	form->form_len += ft_hex_len(nb, form);
 	if (form->minus != 0)
 		ft_puthex_flag(nb, form);
 	else if (!form->minus && form->zero && form->hash)
@@ -26,9 +24,11 @@ void	ft_puthex_b(unsigned int nb, t_form *form)
 		ft_puthex_hash(form);
 		form->zero = 2;
 	}
-	if (form->zero && form->prec_exist && form->prec == 0 && nb == 0)
+	if (form->zero && form->prec_exist && !form->prec && !nb)
 		form->form_len--;
-	ft_put_uint_zero_space(nb, form);
+	if (!form->zero && form->prec_exist && !form->prec && !nb && form->min_fw)
+		form->form_len--;
+	ft_put_hex_zero_space(nb, form);
 	if (!form->minus)
 		ft_puthex_flag(nb, form);
 }
@@ -43,9 +43,10 @@ void	ft_puthex_hash(t_form *form)
 
 void	ft_puthex_flag(unsigned int nb, t_form *form)
 {
-	if (form->prec_exist && !form->prec && nb == 0)
+	if (form->prec_exist && !form->prec && !nb)
 	{
-		form->form_len--;
+		if (form->min_fw == 0)
+			form->form_len = 0;
 		return ;
 	}
 	if (form->zero != 2 && nb != 0)
@@ -73,16 +74,19 @@ void	ft_puthex(unsigned int nb, t_form *form)
 	return ;
 }
 
-void	ft_hex_len(uintptr_t nb, t_form *form)
+int	ft_hex_len(uintptr_t nb, t_form *form)
 {
+	int	i;
+
+	i = 0;
 	if ((form->hash && nb != 0) || form->spec == 'p')
-		form->form_len += 2;
+		i += 2;
 	if (nb == 0)
-		form->form_len++;
+		i++;
 	while (nb > 0)
 	{
-		form->form_len++;
+		i++;
 		nb /= 16;
 	}
-	return ;
+	return (i);
 }

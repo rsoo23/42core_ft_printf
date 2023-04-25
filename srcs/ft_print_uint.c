@@ -17,12 +17,12 @@ void	ft_put_uint_b(unsigned int nb, t_form *form)
 	form->form_len += ft_len_uint(nb);
 	if (form->prec_exist && nb != 0 && form->min_fw <= form->prec)
 		form->zero = 1;
-	if (!form->zero && form->prec_exist && form->prec == 0 && nb == 0)
+	if (!form->zero && form->prec_exist && !form->prec && !nb)
 		form->form_len--;
 	if (form->minus != 0)
 		ft_put_uint_prec(nb, form);
 	ft_put_uint_zero_space(nb, form);
-	if (form->minus == 0)
+	if (!form->minus)
 		ft_put_uint_prec(nb, form);
 }
 
@@ -31,7 +31,7 @@ int	ft_len_uint(unsigned int nb)
 	int	i;
 
 	i = 0;
-	if (nb == 0)
+	if (!nb)
 		i++;
 	while (nb > 0)
 	{
