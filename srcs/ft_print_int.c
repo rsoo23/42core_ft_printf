@@ -22,7 +22,7 @@ void	ft_put_int_b(int nb, t_form *form)
 	if (!form->zero && form->prec_exist && form->prec == 0 && nb == 0)
 		form->form_len--;
 	if (form->minus != 0)
-		ft_int_space_plus(nb, form);
+		ft_put_int_space_plus(nb, form);
 	else if (form->plus && nb > 0)
 	{
 		ft_putchar('+');
@@ -37,10 +37,10 @@ void	ft_put_int_b(int nb, t_form *form)
 	}
 	ft_put_int_zero_space(&nb, form);
 	if (form->minus == 0)
-		ft_int_space_plus(nb, form);
+		ft_put_int_space_plus(nb, form);
 }
 
-void	ft_int_space_plus(int nb, t_form *form)
+void	ft_put_int_space_plus(int nb, t_form *form)
 {
 	if (form->prec_exist && form->prec == 0 && nb == 0)
 	{

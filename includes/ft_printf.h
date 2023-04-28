@@ -70,7 +70,7 @@ void	ft_put_ptr(uintptr_t nb);
 void	ft_put_int(int nb, t_form *form);
 int		ft_len_int(int nb);
 void	ft_put_int_b(int nb, t_form *form);
-void	ft_int_space_plus(int nb, t_form *form);
+void	ft_put_int_space_plus(int nb, t_form *form);
 void	ft_put_int_zero_space(int *nb, t_form *form);
 // ft_print_uint.c
 void	ft_put_uint_b(unsigned int nb, t_form *form);
