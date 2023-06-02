@@ -1,4 +1,4 @@
-# 42core_ft_printf
+# ft_printf
 
 In this project, I recreated the standard printf function that manages:
 - specifiers: cspdiuxX%
