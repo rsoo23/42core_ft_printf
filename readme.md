@@ -1,6 +1,6 @@
 # 42core_ft_printf
 
-Recreating the standard printf function with:
+In this project, I recreated the standard printf function that manages:
 - specifiers: cspdiuxX%
 - flags: . 0 - + space #
 
